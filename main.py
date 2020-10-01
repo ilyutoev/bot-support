@@ -46,6 +46,8 @@ def handle_text(bot, update):
     user_id = update.effective_user.id
 
     response = detect_intent_texts(dialog_project_id, user_id, msg, 'ru')
+    if not response:
+        response = 'Не совсем понимаю о чем ты'
     update.message.reply_text(response)
 
 
