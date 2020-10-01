@@ -1,26 +1,12 @@
 import os
 
 from telegram.ext import Updater, CommandHandler, Filters, MessageHandler
-import dialogflow_v2 as dialogflow
+
+from dialog_flow_handlers import detect_intent_texts
+
 
 bot_url = 't.me/GameOfVerbsBot'
 token = os.getenv('SUPPORT_TELEGRAM_TOKEN')
-dialog_project_id = os.getenv('DIALOG_PROJECT_ID')
-
-
-def detect_intent_texts(project_id, session_id, text, language_code):
-    """Отправялем текст сообщения в Dialog Flow и получаем ответ"""
-
-    session_client = dialogflow.SessionsClient()
-    session = session_client.session_path(project_id, session_id)
-
-    text_input = dialogflow.types.TextInput(text=text, language_code=language_code)
-
-    query_input = dialogflow.types.QueryInput(text=text_input)
-
-    response = session_client.detect_intent(session=session, query_input=query_input)
-
-    return response.query_result.fulfillment_text
 
 
 def start(bot, update):
@@ -33,7 +19,7 @@ def handle_text(bot, update):
     msg = update.message.text
     user_id = update.effective_user.id
 
-    response = detect_intent_texts(dialog_project_id, user_id, msg, 'ru')
+    response = detect_intent_texts(user_id, msg, 'ru')
     if not response:
         response = 'Не совсем понимаю о чем ты.'
     update.message.reply_text(response)
