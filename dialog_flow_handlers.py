@@ -5,7 +5,7 @@ import dialogflow_v2 as dialogflow
 dialog_project_id = os.getenv('DIALOG_PROJECT_ID')
 
 
-def detect_intent_texts(session_id, text, language_code):
+def detect_intent_texts(session_id, text, language_code='ru'):
     """Отправялем текст сообщения в Dialog Flow и получаем ответ"""
 
     session_client = dialogflow.SessionsClient()
