@@ -10,17 +10,15 @@ vk_token = os.getenv('SUPPORT_VK_TOKEN')
 
 
 def dialog_flow_answer(event, vk_api):
-    """Получаем ответ """
+    """Получаем ответ на сообщение пользователя через dialogflow и отправляем его."""
 
     message = detect_intent_texts(event.user_id, event.text)
-    if not message:
-        message = 'Не совсем понимаю о чем ты.'
-
-    vk_api.messages.send(
-        user_id=event.user_id,
-        message=message,
-        random_id=random.randint(1, 1000)
-    )
+    if message:
+        vk_api.messages.send(
+            user_id=event.user_id,
+            message=message,
+            random_id=random.randint(1, 1000)
+        )
 
 
 if __name__ == "__main__":
