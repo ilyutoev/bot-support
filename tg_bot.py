@@ -4,8 +4,6 @@ from telegram.ext import Updater, CommandHandler, Filters, MessageHandler
 
 from dialog_flow_handlers import detect_intent_texts
 
-
-bot_url = 't.me/GameOfVerbsBot'
 token = os.getenv('SUPPORT_TELEGRAM_TOKEN')
 
 
