@@ -25,13 +25,12 @@ def handle_text(bot, update):
     update.message.reply_text(response)
 
 
-updater = Updater(token=token)
+if __name__ == "__main__":
+    updater = Updater(token=token)
 
-start_handler = CommandHandler('start', start)
-text_handler = MessageHandler(Filters.text, handle_text)
-command_handler = MessageHandler(Filters.command, handle_text)
+    start_handler = CommandHandler('start', start)
+    text_handler = MessageHandler(Filters.text, handle_text)
 
-updater.dispatcher.add_handler(start_handler)
-updater.dispatcher.add_handler(text_handler)
-updater.dispatcher.add_handler(command_handler)
-updater.start_polling()
+    updater.dispatcher.add_handler(start_handler)
+    updater.dispatcher.add_handler(text_handler)
+    updater.start_polling()
