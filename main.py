@@ -9,28 +9,16 @@ dialog_project_id = os.getenv('DIALOG_PROJECT_ID')
 
 
 def detect_intent_texts(project_id, session_id, text, language_code):
-    """Отправялем текст сообщения в Doalog Flow и получаем ответ"""
+    """Отправялем текст сообщения в Dialog Flow и получаем ответ"""
 
     session_client = dialogflow.SessionsClient()
-
     session = session_client.session_path(project_id, session_id)
-    print('Session path: {}\n'.format(session))
 
-    text_input = dialogflow.types.TextInput(
-        text=text, language_code=language_code)
+    text_input = dialogflow.types.TextInput(text=text, language_code=language_code)
 
     query_input = dialogflow.types.QueryInput(text=text_input)
 
-    response = session_client.detect_intent(
-        session=session, query_input=query_input)
-
-    print('=' * 20)
-    print('Query text: {}'.format(response.query_result.query_text))
-    print('Detected intent: {} (confidence: {})\n'.format(
-        response.query_result.intent.display_name,
-        response.query_result.intent_detection_confidence))
-    print('Fulfillment text: {}\n'.format(
-        response.query_result.fulfillment_text))
+    response = session_client.detect_intent(session=session, query_input=query_input)
 
     return response.query_result.fulfillment_text
 
@@ -47,7 +35,7 @@ def handle_text(bot, update):
 
     response = detect_intent_texts(dialog_project_id, user_id, msg, 'ru')
     if not response:
-        response = 'Не совсем понимаю о чем ты'
+        response = 'Не совсем понимаю о чем ты.'
     update.message.reply_text(response)
 
 
