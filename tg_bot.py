@@ -1,10 +1,29 @@
 import os
+import logging
 
+import telegram
 from telegram.ext import Updater, CommandHandler, Filters, MessageHandler
 
 from dialog_flow_handlers import detect_intent_texts
 
 token = os.getenv('SUPPORT_TELEGRAM_TOKEN')
+
+logger = logging.getLogger(__name__)
+
+
+class LogsToTelegramHandler(logging.Handler):
+    """Обработчик логов, который шлет их в телеграм канал."""
+    def __init__(self, telegram_token, chat_id):
+        super().__init__()
+        self.chat_id = chat_id
+        self.log_bot = telegram.Bot(token=telegram_token)
+
+    def emit(self, record):
+        log_entry = self.format(record)
+        self.log_bot.send_message(
+            chat_id=self.chat_id, text=log_entry,
+            disable_web_page_preview=True
+        )
 
 
 def start(bot, update):
@@ -24,6 +43,13 @@ def handle_text(bot, update):
 
 
 if __name__ == "__main__":
+    notification_telegram_token = os.getenv("NOTIFICATION_TELEGRAM_TOKEN")
+    notification_chat_id = os.getenv("NOTIFICATION_TG_CHAT_ID")
+    logger.setLevel(logging.INFO)
+    logger.addHandler(LogsToTelegramHandler(notification_telegram_token, notification_chat_id))
+
+    logger.info('Telegram support bot started.')
+
     updater = Updater(token=token)
 
     start_handler = CommandHandler('start', start)
