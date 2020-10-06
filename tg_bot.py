@@ -6,8 +6,6 @@ from telegram.ext import Updater, CommandHandler, Filters, MessageHandler
 from dialog_flow_handlers import detect_intent_texts
 from log_handlers import LogsToTelegramHandler
 
-token = os.getenv('SUPPORT_TELEGRAM_TOKEN')
-
 logger = logging.getLogger(__name__)
 
 
@@ -34,6 +32,8 @@ if __name__ == "__main__":
     logger.addHandler(LogsToTelegramHandler(notification_telegram_token, notification_chat_id))
 
     logger.info('Telegram support bot started.')
+
+    token = os.getenv('SUPPORT_TELEGRAM_TOKEN')
 
     updater = Updater(token=token)
 

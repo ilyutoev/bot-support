@@ -8,8 +8,6 @@ from vk_api.longpoll import VkLongPoll, VkEventType
 from dialog_flow_handlers import detect_intent_texts
 from log_handlers import LogsToTelegramHandler
 
-vk_token = os.getenv('SUPPORT_VK_TOKEN')
-
 logger = logging.getLogger(__name__)
 
 
@@ -32,6 +30,8 @@ if __name__ == "__main__":
     logger.addHandler(LogsToTelegramHandler(notification_telegram_token, notification_chat_id))
 
     logger.info('VKontkte support bot started.')
+
+    vk_token = os.getenv('SUPPORT_VK_TOKEN')
 
     vk_session = vk_api.VkApi(token=vk_token)
     vk_api = vk_session.get_api()
