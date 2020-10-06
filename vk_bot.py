@@ -14,7 +14,8 @@ logger = logging.getLogger(__name__)
 def dialog_flow_answer(event, vk_api):
     """Получаем ответ на сообщение пользователя через dialogflow и отправляем его."""
 
-    message = detect_intent_texts(event.user_id, event.text)
+    session_id = f'vk-{event.user_id}'
+    message = detect_intent_texts(session_id, event.text)
     if message:
         vk_api.messages.send(
             user_id=event.user_id,

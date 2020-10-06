@@ -19,7 +19,8 @@ def handle_text(bot, update):
     msg = update.message.text
     user_id = update.effective_user.id
 
-    response = detect_intent_texts(user_id, msg, 'ru')
+    session_id = f'tg-{user_id}'
+    response = detect_intent_texts(session_id, msg, 'ru')
     if not response:
         response = 'Не совсем понимаю о чем ты.'
     update.message.reply_text(response)
