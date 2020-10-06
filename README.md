@@ -20,6 +20,8 @@ pip install -r requirements.txt
 - `DIALOG_PROJECT_ID` - id проекта для распознования речи, созданного в DialogFlow
 - `SUPPORT_TELEGRAM_TOKEN` - токен для телеграмм бота
 - `SUPPORT_VK_TOKEN` - токен для бота вконтакте
+- `NOTIFICATION_TELEGRAM_TOKEN` - токен для бота телеграм для отправки уведомелний администратору
+- `NOTIFICATION_TELEGRAM_CHAT_ID` - id чата в телеграмме с администратором для отправки уведомелний
 
 ## Как запустить телеграмм бота
 

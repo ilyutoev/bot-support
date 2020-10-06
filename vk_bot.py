@@ -42,7 +42,7 @@ def dialog_flow_answer(event, vk_api):
 
 if __name__ == "__main__":
     notification_telegram_token = os.getenv("NOTIFICATION_TELEGRAM_TOKEN")
-    notification_chat_id = os.getenv("NOTIFICATION_TG_CHAT_ID")
+    notification_chat_id = os.getenv("NOTIFICATION_TELEGRAM_CHAT_ID")
     logger.setLevel(logging.INFO)
     logger.addHandler(LogsToTelegramHandler(notification_telegram_token, notification_chat_id))
 
